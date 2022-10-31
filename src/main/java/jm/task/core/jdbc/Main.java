@@ -1,10 +1,6 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.service.UserServiceImpl;
-
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
+import jm.task.core.jdbc.util.service.UserServiceImpl;
 
 public class Main {
     public static void main(String[] args) {

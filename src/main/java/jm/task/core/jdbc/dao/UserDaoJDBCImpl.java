@@ -12,10 +12,9 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
-
     }
-
-    public void createUsersTable() {
+    Connection connection = Util.getInstance().getConnection();
+    public void createUsersTable() throws SQLException {
         try (Connection connection = Util.getInstance().getConnection()) {
             connection.setAutoCommit(false);
             connection.createStatement().execute("CREATE TABLE  IF NOT EXISTS pall (id BIGINT PRIMARY KEY " +
@@ -23,16 +22,18 @@ public class UserDaoJDBCImpl implements UserDao {
                     "lastname VARCHAR (45), age TINYINT(2))");
             connection.commit();
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }
-    public void dropUsersTable() {
+    public void dropUsersTable() throws SQLException {
     String sql = "DROP TABLE IF EXISTS pall";
         try (Connection connection = Util.getInstance().getConnection()) {
             connection.setAutoCommit(false);
             connection.createStatement().executeUpdate(sql);
             connection.commit();
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }
@@ -62,7 +63,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * from pall";
         try (Connection connection = Util.getInstance().getConnection()) {
@@ -79,18 +80,19 @@ public class UserDaoJDBCImpl implements UserDao {
             }
             System.out.println(users);
         } catch (SQLException e) {
+            connection.rollback();
         e.printStackTrace();
         }
         return users;
     }
-    public void cleanUsersTable() {
+    public void cleanUsersTable() throws SQLException {
         String sql = "TRUNCATE pall";
        try (Connection connection = Util.getInstance().getConnection()) {
            connection.setAutoCommit(false);
            connection.createStatement().executeUpdate(sql);
            connection.commit();
        } catch (SQLException e) {
-
+           connection.rollback();
        }
     }
 }

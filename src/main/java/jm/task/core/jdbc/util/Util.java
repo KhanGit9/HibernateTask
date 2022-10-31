@@ -1,5 +1,8 @@
 package jm.task.core.jdbc.util;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +22,18 @@ public class Util {
         }
         return instance;
     }
+    SessionFactory factory;
+
+
+
+
+
+
+
+
+
+
+
     public Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
