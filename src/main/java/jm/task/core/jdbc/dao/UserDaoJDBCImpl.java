@@ -24,6 +24,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
+
         }
     }
     public void dropUsersTable() throws SQLException {
