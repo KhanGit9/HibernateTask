@@ -54,6 +54,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.save(new User(name, lastName, age));
             session.getTransaction().commit();
+            System.out.println("Пользователь" + name + " Добавлен");
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -69,6 +70,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.getTransaction();
             session.remove(user);
             session.getTransaction().commit();
+            System.out.println("Пользователь с ID = " + id + " добавлен");
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -100,6 +102,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE User").executeUpdate();
             session.getTransaction().commit();
+            System.out.println("Таблица очищена");
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
